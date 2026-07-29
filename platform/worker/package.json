@@ -12,6 +12,7 @@
     "test": "node --test src/*.test.mjs"
   },
   "dependencies": {
-    "convex": "^1.42.1"
+    "convex": "^1.42.1",
+    "es-module-lexer": "1.7.0"
   }
 }

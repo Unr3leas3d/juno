@@ -16,7 +16,10 @@
 import { mkdir, rm, readFile, symlink, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { init as initModuleLexer, parse as parseModule } from "es-module-lexer";
 import { childEnv, randHex, run } from "./util.mjs";
+
+await initModuleLexer;
 
 /** Catalog tools that exist as files in the template: off → delete the file. */
 const TOOL_FILES = {
@@ -86,9 +89,6 @@ const CAPABILITY_FILES = {
 // agent has its own deployment, so namespaces never collide across agents.
 const QUEUE_NAMESPACE = "eve" + Buffer.from("agent", "utf8").toString("hex");
 
-const BARE_WORLD_CONVEX_IMPORT =
-  /\b(?:from\s*|import\s*(?:\(\s*)?)["']world-convex(?:\/[^"']*)?["']/;
-
 /**
  * Convex storage materializes only the vendored eve output under /tmp; it
  * does not install the agent workspace's node_modules. A missing
@@ -96,7 +96,12 @@ const BARE_WORLD_CONVEX_IMPORT =
  * left as a bare runtime import, which fails only after the bundle is live.
  */
 export function assertSelfContainedEveBundle(source) {
-  if (BARE_WORLD_CONVEX_IMPORT.test(source)) {
+  const [imports] = parseModule(source);
+  const externalImport = imports.find(
+    ({ n: specifier }) =>
+      specifier === "world-convex" || specifier?.startsWith("world-convex/"),
+  );
+  if (externalImport) {
     throw new Error(
       "eve build left world-convex as an external runtime import; " +
         "the uploaded Convex bundle must be self-contained",
