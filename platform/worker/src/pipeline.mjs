@@ -16,7 +16,10 @@
 import { mkdir, rm, readFile, symlink, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { init as initModuleLexer, parse as parseModule } from "es-module-lexer";
 import { childEnv, randHex, run } from "./util.mjs";
+
+await initModuleLexer;
 
 /** Catalog tools that exist as files in the template: off → delete the file. */
 const TOOL_FILES = {
@@ -85,6 +88,26 @@ const CAPABILITY_FILES = {
 // workspace copy keeps — so it is identical for every deployed agent. Each
 // agent has its own deployment, so namespaces never collide across agents.
 const QUEUE_NAMESPACE = "eve" + Buffer.from("agent", "utf8").toString("hex");
+
+/**
+ * Convex storage materializes only the vendored eve output under /tmp; it
+ * does not install the agent workspace's node_modules. A missing
+ * world-convex build can otherwise be downgraded by Nitro to a warning and
+ * left as a bare runtime import, which fails only after the bundle is live.
+ */
+export function assertSelfContainedEveBundle(source) {
+  const [imports] = parseModule(source);
+  const externalImport = imports.find(
+    ({ n: specifier }) =>
+      specifier === "world-convex" || specifier?.startsWith("world-convex/"),
+  );
+  if (externalImport) {
+    throw new Error(
+      "eve build left world-convex as an external runtime import; " +
+        "the uploaded Convex bundle must be self-contained",
+    );
+  }
+}
 
 function agentTs(model) {
   return `import type { ModelMessage } from "ai";
@@ -385,6 +408,16 @@ export async function deployAgent(input, opts) {
 
   // ---- build ---------------------------------------------------------------
   await setStep("build");
+  // dist/ is gitignored, so a fresh worker image has the world-convex source
+  // but not the package entrypoint that eve resolves. Build it explicitly
+  // before compiling each materialized agent.
+  await run("pnpm", ["--filter", "world-convex", "build"], {
+    cwd: repoRoot,
+    log,
+    label: "world-convex build",
+    timeoutMs: 2 * 60_000,
+  });
+
   const eveBin = join(agentDir, "node_modules/.bin/eve");
   await run(eveBin, ["build"], {
     cwd: agentDir,
@@ -394,9 +427,11 @@ export async function deployAgent(input, opts) {
   });
 
   const serverDir = join(agentDir, ".output/server");
-  if (!existsSync(join(serverDir, "_libs/eve.mjs"))) {
+  const eveBundlePath = join(serverDir, "_libs/eve.mjs");
+  if (!existsSync(eveBundlePath)) {
     throw new Error("eve build produced no _libs/eve.mjs — build output incomplete");
   }
+  assertSelfContainedEveBundle(await readFile(eveBundlePath, "utf8"));
   // vendor-eve.mjs also generates entry.mjs (stable names for the minified
   // per-build export aliases) — the Convex runner imports only entry.mjs.
   await run(process.execPath, ["scripts/vendor-eve.mjs", serverDir], {
