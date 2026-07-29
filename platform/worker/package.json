@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node src/index.mjs",
-    "deploy:cli": "node src/cli.mjs"
+    "deploy:cli": "node src/cli.mjs",
+    "test": "node --test src/*.test.mjs"
   },
   "dependencies": {
     "convex": "^1.42.1"
