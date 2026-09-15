@@ -6,7 +6,7 @@
 
   setupConvex(CONVEX_URL);
 
-  // Builder-deployed agent apps get their own title; adam keeps index.html's.
+  // Builder-deployed agent apps get their own title; Juno keeps index.html's.
   if (IS_AGENT_APP) {
     document.title = `${BRAND_NAME} — agent on Convex`;
   }

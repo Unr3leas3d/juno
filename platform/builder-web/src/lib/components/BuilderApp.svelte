@@ -53,7 +53,7 @@
 <div class="flex h-dvh flex-col overflow-hidden bg-background text-foreground">
   <nav class="flex min-h-14 shrink-0 items-center justify-between gap-4 border-b px-4 md:px-5">
     <div class="flex min-w-0 items-baseline gap-2.5">
-      <a class="truncate text-sm font-semibold tracking-[-0.28px] no-underline" href="/">adam</a>
+      <a class="truncate text-sm font-semibold tracking-[-0.28px] no-underline" href="/">Juno</a>
       <span class="truncate text-sm text-muted-foreground">/</span>
       <span class="truncate text-sm font-semibold tracking-[-0.28px]">builder</span>
       <span class="hidden font-mono text-xs text-gray-600 md:inline">

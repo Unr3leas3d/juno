@@ -1,4 +1,4 @@
-# Linked Railway project: adam-worker (build worker for the agent builder).
+# Linked Railway project: juno-worker (build worker for the agent builder).
 # Build context is the monorepo root.
 
 [build]

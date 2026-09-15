@@ -25,9 +25,8 @@ export {
  *   - gateway keys    → set AI_GATEWAY_API_KEY (and clear any provider
  *                       override so the default gateway provider is used)
  *   - OpenRouter keys → install an OpenRouter provider as
- *                       AI_SDK_DEFAULT_PROVIDER (model ids like
- *                       "anthropic/claude-sonnet-5" are valid OpenRouter
- *                       slugs, so the agent's model resolves unchanged)
+ *                       AI_SDK_DEFAULT_PROVIDER (the agent's model id is a
+ *                       valid OpenRouter slug, so it resolves unchanged)
  *
  * But "use node" actions share a warm Node process: without serialization,
  * chat:send's key injection races a concurrent runner tick's — one section
@@ -100,7 +99,7 @@ function openRouterDefaultProvider(apiKey: string) {
     // Talking to openrouter.ai itself (not a 3rd-party OpenAI-compatible
     // host), so request the full protocol — includes streamed token usage.
     compatibility: "strict",
-    appName: "adam/eve on Convex",
+    appName: "Juno/eve on Convex",
   });
   return {
     specificationVersion: "v4" as const,

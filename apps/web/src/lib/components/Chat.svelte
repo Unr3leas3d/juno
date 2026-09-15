@@ -9,7 +9,7 @@
   import { BRAND_NAME } from "../brand";
   import { modelsApi, type ModelOption } from "../api";
   import { modelKey } from "../apiKey.svelte";
-  import { DEFAULT_MODEL_ID, webModel } from "../models.svelte";
+  import { DEFAULT_MODEL_ID, isAllowedModel, webModel } from "../models.svelte";
   import { Button } from "ui/components/button";
   import Markdown from "./Markdown.svelte";
   import ModelPicker from "./ModelPicker.svelte";
@@ -40,7 +40,9 @@
       )
       .then((result) => {
         if (cancelled) return;
-        models = result.models;
+        // This personal deployment has one supported model. Keep the
+        // client-side filter even though the backend applies the same rule.
+        models = result.models.filter((option) => isAllowedModel(option.id));
         // A saved model that left this provider's catalog would fail every
         // turn; fall back to the agent's configured default. Only a loaded
         // catalog is evidence of removal — an empty one is usually a

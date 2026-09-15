@@ -4,7 +4,7 @@ __eveDirname(__eveFileURLToPath(import.meta.url));
 import { R as dispatchScheduleTask } from "../_libs/eve.mjs";
 //#region #eve-schedule-task/eve.schedule.c2NoZWR1bGVzL21lbW9yeS1jb25zb2xpZGF0aW9uLm1k
 const config = {
-	"appRoot": "/home/ubuntu/repos/adam/apps/agent",
+	"appRoot": "/home/eve/Projects/agent/apps/agent",
 	"dev": false
 };
 var eve_schedule_default = {

@@ -43,7 +43,7 @@ export function hasOwnerCredential(): boolean {
 /**
  * True when this deployment explicitly serves web chat on its own credential.
  * Builder-deployed agents set CHAT_USE_DEPLOYMENT_KEY=1 alongside their key;
- * deployments that keep a key only for scheduled/system sessions — the adam
+ * deployments that keep a key only for scheduled/system sessions — the Juno
  * demo with its hourly heartbeat — stay BYOK for visitors. Merely having a
  * credential must NOT open owner-billed anonymous chat.
  */

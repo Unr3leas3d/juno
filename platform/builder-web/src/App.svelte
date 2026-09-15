@@ -25,8 +25,8 @@
 
   $effect(() => {
     document.title = isBuilder
-      ? "adam agent builder — one-click durable agents on Convex"
-      : "adam — the durable agent runtime, all on Convex";
+      ? "Juno agent builder — one-click durable agents on Convex"
+      : "Juno — the durable agent runtime, all on Convex";
   });
 </script>
 

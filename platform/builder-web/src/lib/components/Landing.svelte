@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button } from "ui/components/button";
 
-  const command = "git clone github.com/michaelshimeles/adam";
+  const command = "git clone https://github.com/Unr3leas3d/juno";
 
   let copied = $state(false);
 
@@ -142,7 +142,7 @@
     class="sticky top-0 z-20 flex min-h-16 items-center justify-between border-b bg-background/70 px-4 backdrop-blur-md md:px-6"
   >
     <a class="flex items-baseline gap-2.5 no-underline" href="#/">
-      <span class="text-sm font-semibold tracking-[-0.28px] text-foreground">adam</span>
+      <span class="text-sm font-semibold tracking-[-0.28px] text-foreground">Juno</span>
       <span class="hidden font-mono text-xs text-gray-600 sm:inline">eve × convex</span>
     </a>
     <div class="flex items-center gap-1 md:gap-2">
@@ -160,10 +160,10 @@
       >
       <a
         class="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors duration-150 hover:bg-alpha-100 hover:text-foreground"
-        href="https://github.com/michaelshimeles/adam/fork"
+        href="https://github.com/Unr3leas3d/juno/fork"
         target="_blank"
         rel="noreferrer"
-        aria-label="Fork adam on GitHub"
+        aria-label="Fork Juno on GitHub"
       >
         <span>fork it</span>
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
@@ -188,7 +188,7 @@
         The durable agent runtime, all on Convex
       </h1>
       <p class="mt-6 mb-0 max-w-[520px] text-base leading-6 text-muted-foreground">
-        adam takes
+        Juno takes
         <a
           class="text-foreground underline decoration-alpha-500 underline-offset-4 hover:decoration-alpha-800"
           href="https://eve.dev"
@@ -203,7 +203,7 @@
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <Button href="/builder" size="lg">Open Builder</Button>
         <Button
-          href="https://github.com/michaelshimeles/adam"
+          href="https://github.com/Unr3leas3d/juno"
           target="_blank"
           rel="noreferrer"
           variant="outline"
@@ -229,13 +229,13 @@
       </p>
     </div>
 
-    <!-- product snapshot: what every adam deployment looks like -->
+    <!-- product snapshot: what every Juno deployment looks like -->
     <aside
       class="shadow-menu w-full min-w-0 rounded-xl border bg-background"
-      aria-label="Adam deployment shape"
+      aria-label="Juno deployment shape"
     >
       <div class="flex items-center justify-between gap-3 border-b px-4 py-3">
-        <span class="truncate font-mono text-xs text-gray-600">adam@convex — deployment</span>
+        <span class="truncate font-mono text-xs text-gray-600">juno@convex — deployment</span>
         <span class="inline-flex shrink-0 items-center gap-1.5 font-mono text-[11px] text-green-900">
           <span class="size-1.5 animate-pulse rounded-full bg-current"></span> live
         </span>
@@ -280,7 +280,7 @@
         eve says an agent is a directory — an
         <code class="rounded-sm border bg-gray-100 px-1.5 py-px font-mono text-[0.9em] text-gray-1000"
           >instructions.md</code
-        >, some tools, a schedule. adam keeps that, then uses
+        >, some tools, a schedule. Juno keeps that, then uses
         <code class="rounded-sm border bg-gray-100 px-1.5 py-px font-mono text-[0.9em] text-gray-1000"
           >eve build</code
         >
@@ -548,7 +548,7 @@
       <div class="mx-auto flex max-w-80 flex-col justify-center gap-3 md:max-w-none md:flex-row">
         <Button href="/builder" size="lg">Open Builder</Button>
         <Button
-          href="https://github.com/michaelshimeles/adam"
+          href="https://github.com/Unr3leas3d/juno"
           target="_blank"
           rel="noreferrer"
           variant="outline"

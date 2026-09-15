@@ -11,9 +11,8 @@ import { defineAgent, defineDynamic } from "eve";
  *   CONVEX_URL, WORLD_SERVICE_SECRET, WORKFLOW_LOCAL_BASE_URL
  */
 
-const DEFAULT_MODEL = "anthropic/claude-sonnet-5";
-
-const MODEL_ID_PATTERN = /^[\w.-]+\/[\w.:-]+$/;
+/** The personal deployment intentionally exposes one model only. */
+const ALLOWED_MODEL = "openai/gpt-5.6-luna";
 
 const CLIENT_CONTEXT_PREFIX = "Client context:\n";
 
@@ -45,7 +44,7 @@ function parseModelMarker(text: string): string | null {
     const parsed: unknown = JSON.parse(text.slice(CLIENT_CONTEXT_PREFIX.length));
     if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) return null;
     const model = (parsed as Record<string, unknown>).eveWebModel;
-    return typeof model === "string" && MODEL_ID_PATTERN.test(model) ? model : null;
+    return model === ALLOWED_MODEL ? model : null;
   } catch {
     return null;
   }
@@ -59,7 +58,7 @@ export default defineAgent({
   // the one whose ctx.messages includes the current turn's just-injected
   // "Client context:" message (turn.started sees only prior conversation).
   model: defineDynamic({
-    fallback: DEFAULT_MODEL,
+    fallback: ALLOWED_MODEL,
     events: {
       "step.started": (_event, ctx) => requestedModel(ctx.messages),
     },

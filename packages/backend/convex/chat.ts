@@ -27,7 +27,7 @@ import { OWNER, withModelKey } from "./runner/modelKeyLock";
  * CHAT_USE_DEPLOYMENT_KEY=1 on the deployment; when the client omits apiKey
  * and that opt-in is present, the turn runs on owner credentials (same as
  * schedules). Otherwise — including deployments that keep a key only for
- * their schedules, like the adam demo — the caller must bring a Vercel AI
+ * their schedules, like the Juno demo — the caller must bring a Vercel AI
  * Gateway or OpenRouter key (BYOK).
  */
 

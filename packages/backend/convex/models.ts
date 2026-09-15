@@ -21,6 +21,7 @@ import {
 
 const GATEWAY_ORIGIN = "https://ai-gateway.vercel.sh";
 const OPENROUTER_ORIGIN = "https://openrouter.ai";
+const ALLOWED_MODEL_ID = "openai/gpt-5.6-luna";
 
 const modelOption = v.object({
   id: v.string(),
@@ -77,7 +78,7 @@ function parseCatalog(json: unknown): ModelOption[] {
       pricing: input !== undefined && output !== undefined ? { input, output } : undefined,
     });
   }
-  return options;
+  return options.filter((option) => option.id === ALLOWED_MODEL_ID);
 }
 
 export const list = action({

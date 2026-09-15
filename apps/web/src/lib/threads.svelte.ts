@@ -4,6 +4,8 @@
  * on the thread meta so switching threads resumes the right session.
  */
 
+import { randomId } from "./ids";
+
 export interface ThreadMeta {
   id: string;
   title: string;
@@ -23,7 +25,7 @@ export interface ThreadSection {
 const THREADS_KEY = "eve-web-threads";
 
 function newThreadMeta(): ThreadMeta {
-  return { id: crypto.randomUUID(), title: "New chat", updatedAt: Date.now() };
+  return { id: randomId(), title: "New chat", updatedAt: Date.now() };
 }
 
 interface ThreadIndex {

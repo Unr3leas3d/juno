@@ -1,5 +1,4 @@
 import type { ModelProvider } from "./api";
-import { AGENT_MODEL } from "./brand";
 
 /**
  * The web chat's selected model. Rides along on every send as one-turn
@@ -16,7 +15,12 @@ import { AGENT_MODEL } from "./brand";
 const MODEL_KEY_PREFIX = "eve-convex-web-model";
 const FAVORITES_KEY = "eve-convex-model-favorites";
 
-export const DEFAULT_MODEL_ID: string = AGENT_MODEL ?? "anthropic/claude-sonnet-5";
+/** The personal deployment intentionally exposes one model only. */
+export const DEFAULT_MODEL_ID = "openai/gpt-5.6-luna";
+
+export function isAllowedModel(id: string): boolean {
+  return id === DEFAULT_MODEL_ID;
+}
 
 function storageKey(provider: ModelProvider): string {
   return `${MODEL_KEY_PREFIX}:${provider}`;
@@ -29,7 +33,8 @@ function storageKey(provider: ModelProvider): string {
  */
 function loadModel(provider: ModelProvider): string {
   try {
-    return localStorage.getItem(storageKey(provider)) ?? DEFAULT_MODEL_ID;
+    const saved = localStorage.getItem(storageKey(provider));
+    return saved !== null && isAllowedModel(saved) ? saved : DEFAULT_MODEL_ID;
   } catch {
     return DEFAULT_MODEL_ID;
   }
@@ -67,6 +72,7 @@ export const webModel = {
     selected = loadModel(provider);
   },
   select(id: string): void {
+    if (!isAllowedModel(id)) return;
     selected = id;
     if (activeProvider === null) return; // pre-key render; nothing to scope to
     try {

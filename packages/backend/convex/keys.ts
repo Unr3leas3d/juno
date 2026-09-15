@@ -17,7 +17,7 @@ import {
  *
  * Builder-deployed agents set AI_GATEWAY_API_KEY on the deployment; web chat
  * then runs on that owner credential (sessions marked `system`) and the UI
- * skips the BYOK dialog. The adam demo / deployments without an owner key
+ * skips the BYOK dialog. The Juno demo / deployments without an owner key
  * still require visitors to bring a Vercel AI Gateway or OpenRouter key —
  * chat:send records it against the session and the runner injects it before
  * delivering that session's jobs.
@@ -239,7 +239,7 @@ async function checkKey(
 
 /**
  * Whether this deployment serves chat on its own credential (builder
- * deployments set CHAT_USE_DEPLOYMENT_KEY=1 next to the key; the adam demo
+ * deployments set CHAT_USE_DEPLOYMENT_KEY=1 next to the key; the Juno demo
  * keeps its key schedule-only and stays BYOK). Never returns the credential
  * itself — only a boolean for the UI gate.
  */

@@ -560,7 +560,7 @@ export async function deployAgent(input, opts) {
     envSets[modelKeyEnvName] = aiGatewayApiKey || openRouterApiKey;
     // Explicit opt-in: web chat bills the deployment key and the UI skips
     // the visitor-key dialog. Deployments holding a key only for schedules
-    // (the adam demo) never set this and stay BYOK.
+    // (the Juno demo) never set this and stay BYOK.
     envSets.CHAT_USE_DEPLOYMENT_KEY = "1";
   }
   if (webhookSecret) envSets.WEBHOOK_CHANNEL_SECRET = webhookSecret;

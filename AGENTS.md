@@ -51,7 +51,7 @@ captures non-obvious caveats discovered while setting up the cloud environment.
 - `pnpm build` fans out through turbo and re-vendors the eve bundle.
 
 ### `platform/*` (agent builder, Product B)
-- Optional second product; not needed to run `adam`. See `platform/README.md`.
+- Optional second product; not needed to run `Juno`. See `platform/README.md`.
 - Three processes: `builder-backend` (`CONVEX_AGENT_MODE=anonymous npx convex dev`,
   set `PLATFORM_WORKER_SECRET`), `builder-web` (`npx vite --port 5175`, point it
   at the backend with `platform/builder-web/.env.local`

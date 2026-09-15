@@ -1,11 +1,11 @@
-# adam
+# Juno
 
 [eve](https://vercel.com/docs/agents/eve) is Vercel's durable AI agent runtime.
 Out of the box it runs as a long-lived Node server and persists its state
 through the Workflow SDK's "world" — Postgres + Redis locally, Vercel's
 managed queues in production.
 
-**adam** ports the whole thing onto **[Convex](https://convex.dev)**. Not just
+**Juno** ports the whole thing onto **[Convex](https://convex.dev)**. Not just
 the durable state — the *execution engine itself*. `eve build` is used as a
 compiler; the emitted server bundle is vendored into the Convex deployment and
 executed inside Convex `"use node"` actions. At runtime there is no eve
@@ -61,7 +61,7 @@ server. One Convex deployment runs and stores everything:
 | `packages/world-convex` | Implementation of `@workflow/world` (Storage + Queue + Streamer) backed by the Convex deployment. Compiled into the eve bundle via `experimental.workflow.world` |
 | `apps/agent` | The eve project: agent definition, Convex-backed tools (`save_note`, `list_notes`, `clear_notes` w/ HITL approval, `workflow_stats`, `get_time`, `simulate_long_task` for chunked long work), heartbeat schedule. Built with `eve build`, never started as a server |
 | `apps/web` | Svelte 5 + convex-svelte dashboard: chat with the agent (streaming + HITL), live notepad, run/step/event/stream observability |
-| `platform/*` | The **adam agent builder**: configure an agent (model, instructions, tools, schedule) in a dashboard and one-click deploy it to its own Convex project, with stuck deploy/delete job recovery (reaper cron, cancel, worker heartbeat). See [platform/README.md](platform/README.md) |
+| `platform/*` | The **Juno agent builder**: configure an agent (model, instructions, tools, schedule) in a dashboard and one-click deploy it to its own Convex project, with stuck deploy/delete job recovery (reaper cron, cancel, worker heartbeat). See [platform/README.md](platform/README.md) |
 
 ## How the port works
 
@@ -355,10 +355,10 @@ re-vendors the eve bundle.
   + `provider` args) — a Vercel AI Gateway key or an OpenRouter key. The
   dashboard prompts for it and the runner injects it per session
   (`sessionKeys` table), so visitors spend their own model credits, not the
-  deployment's.   Gateway keys are injected as `AI_GATEWAY_API_KEY`;
+  deployment's. Gateway keys are injected as `AI_GATEWAY_API_KEY`;
   OpenRouter keys swap the AI SDK default provider to OpenRouter for that
-  session's deliveries (the agent's `anthropic/claude-sonnet-5` model id is
-  also a valid OpenRouter slug). One capability difference: gateway-hosted
+  session's deliveries (the agent's `openai/gpt-5.6-luna` model id is also a
+  valid OpenRouter slug). One capability difference: gateway-hosted
   provider tools (web_search via parallel_search) are stripped from
   OpenRouter requests — the agent falls back to its `web_fetch` tool.
   Only the hourly heartbeat schedule runs on

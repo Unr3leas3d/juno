@@ -1,12 +1,12 @@
 ---
 name: testing-builder-deploy
-description: Test adam's agent builder (platform/*) end-to-end — builder form, deploy pipeline, and the deployed eve-style agent page. Use when verifying builder UI, worker pipeline, or deployed agent web app changes.
+description: Test Juno's agent builder (platform/*) end-to-end — builder form, deploy pipeline, and the deployed eve-style agent page. Use when verifying builder UI, worker pipeline, or deployed agent web app changes.
 ---
 
-# Testing the adam agent builder + deployed agent
+# Testing the Juno agent builder + deployed agent
 
 ## Stack to bring up (three processes + web app under test)
-1. **builder-backend**: `cd platform/builder-backend && CONVEX_AGENT_MODE=anonymous npx convex dev` (local Convex on 3212/3213 if adam's own backend already holds 3210/3211). Set `PLATFORM_WORKER_SECRET` via `npx convex env set`.
+1. **builder-backend**: `cd platform/builder-backend && CONVEX_AGENT_MODE=anonymous npx convex dev` (local Convex on 3212/3213 if Juno's own backend already holds 3210/3211). Set `PLATFORM_WORKER_SECRET` via `npx convex env set`.
 2. **builder-web**: `cd platform/builder-web && npx vite --port 5175` with `.env.local` `VITE_BUILDER_CONVEX_URL=http://127.0.0.1:3212`.
 3. **worker**: `cd platform/worker && node src/index.mjs` with `.env.local` pointing at the builder backend. Deploy jobs stay `pending` forever if the worker isn't running.
 

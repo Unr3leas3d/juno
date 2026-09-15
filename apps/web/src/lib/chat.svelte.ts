@@ -10,6 +10,7 @@ import {
 import { onDestroy } from "svelte";
 import { chatApi, parseSessionEvents, type SessionEventsPage } from "./api";
 import { modelKey } from "./apiKey.svelte";
+import { randomId } from "./ids";
 
 /**
  * Convex-native replacement for eve's useEveAgent hook.
@@ -198,7 +199,7 @@ export function createChatSession(options?: {
     const apiKey = modelKey.value;
     const provider = modelKey.provider;
     errorMessage = null;
-    const submissionId = crypto.randomUUID();
+    const submissionId = randomId();
     if (input.message !== undefined) {
       pending = [
         ...pending,
